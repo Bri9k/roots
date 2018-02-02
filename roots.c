@@ -1,18 +1,22 @@
+/*
+ * Gets One Root of polynomial by Newton's method
+ * Modify function f() to find ints zeros
+ * LIMIT is maximum allowed iterations in Newton's method
+ * delta is the interval for numerical integration
+ * TOL i tolernce between consecutive values to test convergence
+ * */
 #include <stdio.h>
 #include <stdlib.h>
-#include "polynomials.c"
-#define delta 0.00001
-#define PI 3.14159
+#include <math.h>
+#include "function.c"
+#define DELTA 0.00001
 #define LIMIT 100
 #define TOL 0.00001
-double f(double x)
-{
-	return (x*x - 4)/ (x - 2);
-}
+#define INITIAL 5
 
 double slope(double x, double (* funptr)(double ))
 {
-	return ((*funptr)(x + delta) - (*funptr)(x - delta))/(2 * delta);
+	return ((*funptr)(x + DELTA) - (*funptr)(x - DELTA))/(2 * DELTA);
 }
 
 double r00t(double (* funptr)(double),double tolerance,double ini)
@@ -46,7 +50,7 @@ int main()
 	double (* funptr)(double) = &f;
 	// Difficult to declare a pointer to a function that has a function pointer as arguement
 	//double (* slopeptr)((double),double (* double)(double)) = &slope;
-	double root = r00t(funptr,TOL,5);
+	double root = r00t(funptr,TOL,INITIAL);
 
 	printf("%lf: %lf\n",root,(* funptr)(root));
 	return 0;
